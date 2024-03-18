@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -63,13 +61,10 @@ class AuthController extends Controller
     }
 
     /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * Obtener información del usuario autenticado
      */
     public function me()
     {
-        # Here we just get information about current user
         return response()->json(auth()->user());
     }
 }
