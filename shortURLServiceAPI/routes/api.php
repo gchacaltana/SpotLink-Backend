@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LinkController;
@@ -26,6 +25,6 @@ Route::controller(AuthController::class)->group(function () {
 Route::group([
     'prefix' => 'v1/links'
 ], function ($router) {
-    Route::middleware('auth.bearer')->get('/{token}', [LinkController::class, 'getInfoByToken']);
+    Route::get('/{token}', [LinkController::class, 'getUrlByToken']);
     Route::post('/', [LinkController::class, 'create']);
 });
