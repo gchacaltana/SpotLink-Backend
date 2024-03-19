@@ -50,6 +50,7 @@ class AuthController extends Controller
 
     public function refresh()
     {
+        print(gettype(Auth::user()));
         return response()->json([
             'status' => 'success',
             'user' => Auth::user(),
