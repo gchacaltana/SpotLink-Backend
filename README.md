@@ -53,7 +53,7 @@ El siguiente diagrama muestra la interacción entre los componentes.
 
 ## Documentación
 
-* URL: https://backend-gw.spotlink.gonzch.com/api/documentation
+* URL: https://backend-gw-spotlink.gonzch.com/api/documentation
 
 ![image API Documentation](https://gonzch.com/img/cloud/spotlink/spotlink_api_documentation.jpg)
 
@@ -87,5 +87,11 @@ php artisan db:seed
 # Windows
 sh run_dev.sh
 ```
+
+## Integración con Github Actions
+
+* Al hacer un commit en la rama "master" se activa el workflow de Github Actions, se construye y publican las imagenes docker de la aplicación backend y aplicaciones terceras (base de datos y cache).
+
+![image Workflow Github Actions](https://gonzch.com/img/cloud/spotlink/workflow_backend.jpg)
 
 ## Unit Testing
