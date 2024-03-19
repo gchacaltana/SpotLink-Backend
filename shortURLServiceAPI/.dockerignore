@@ -1,0 +1,13 @@
+# Archivos y directorios generados por el sistema operativo y las herramientas de desarrollo
+/node_modules
+/vendor
+/public/storage
+
+# Archivos de configuración locales
+.env
+
+# Archivos temporales
+/.idea
+/.vscode
+/.DS_Store
+/.git
