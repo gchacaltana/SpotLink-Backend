@@ -71,7 +71,14 @@ El siguiente diagrama muestra la interacción entre los componentes.
 composer install
 ```
 
-3. Desplegar aplicación
+3. Migrar modelos y poblar datos
+
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+4. Desplegar aplicación
 
 ```bash
 # Linux
