@@ -8,28 +8,28 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/var/www/html
+      - .:/app
     environment:
       - APP_ENV=local
       - APP_KEY=base64:base64:olfLzwMPkHxjYk/QJJV8sfBwRjQqKq5tOliXOSu3tXA=
       - DB_CONNECTION=pgsql
       - DB_HOST=db
       - DB_PORT=5432
-      - DB_DATABASE=laravel
-      - DB_USERNAME=laravel
-      - DB_PASSWORD=laravel_password
+      - DB_DATABASE=db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     depends_on:
       - db
       - redis
 
-  db:
+  postgres:
     image: postgres:latest
     environment:
-      POSTGRES_DB: laravel
-      POSTGRES_USER: laravel
-      POSTGRES_PASSWORD: laravel_password
+      POSTGRES_DB: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
