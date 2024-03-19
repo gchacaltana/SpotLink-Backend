@@ -41,8 +41,6 @@ RUN composer install
 
 RUN mkdir -p /app/storage/logs
 RUN php artisan cache:clear
-RUN php artisan view:clear
-RUN php artisan config:clear
 
 # Genera la clave de la aplicación
 RUN php artisan key:generate
