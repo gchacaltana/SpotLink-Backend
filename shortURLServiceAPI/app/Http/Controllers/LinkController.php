@@ -10,20 +10,54 @@ use App\Exceptions\TokenException;
 use App\Helpers\StringHelper;
 use App\Services\CacheService;
 
+/**
+ * @OA\Tag(
+ *     name="API Link",
+ *     description="API para acortar y redirigir URLs"
+ * )
+ */
 class LinkController extends Controller
 {
     /**
      * Método para obtener la URL de un token (short link)
+     * @OA\Get (
+     *     path="/api/v1/links/{token}",
+     *     tags={"API Link"},
+     *     @OA\Parameter(
+     *        name="token",
+     *        in="path",
+     *        required=true,
+     *        @OA\Schema(
+     *         type="string"
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="url", type="string", example="http://www.example.com")
+     *        )
+     *     ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Link not found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Link not found")
+     *          )
+     *      )
+     * )
      */
     public function getUrlByToken(string $token)
     {
         try {
             StringHelper::validateTokenFormat($token);
             $url = CacheService::getToken($token);
-            if (StringHelper::validateUrl($url)) {
-                return response()->json([
-                    'url' => $url
-                ]);
+            if (!is_null($url)) {
+                if (StringHelper::validateUrl($url)) {
+                    return response()->json([
+                        'url' => $url
+                    ]);
+                }
             }
             $link = Link::where('token', $token)->first();
             if ($link) {
@@ -54,7 +88,36 @@ class LinkController extends Controller
 
     /**
      * Método para crear un short link
-     * @param Request $request
+     * @OA\Post (
+     *     path="/api/v1/links",
+     *     tags={"API Link"},
+     *     security={{ "Authorization": {} }},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="url", type="string", example="http://www.example.com")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="id", type="integer"),
+     *             @OA\Property(property="url", type="string"),
+     *             @OA\Property(property="token", type="string"),
+     *             @OA\Property(property="user_id", type="integer"),
+     *             @OA\Property(property="created_at", type="string"),
+     *             @OA\Property(property="updated_at", type="string")
+     *        )
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="status", type="string", example="error"),
+     *          )
+     *      )
+     * )
      */
     public function create(Request $request)
     {
