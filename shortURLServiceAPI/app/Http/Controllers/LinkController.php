@@ -12,18 +12,12 @@ use App\Services\CacheService;
 
 class LinkController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth.bearer');
-    }
-
     /**
      * Método para obtener la URL de un token (short link)
      */
     public function getUrlByToken(string $token)
     {
         try {
-            $this->validateAuthUser();
             StringHelper::validateTokenFormat($token);
             $url = CacheService::getToken($token);
             if (StringHelper::validateUrl($url)) {

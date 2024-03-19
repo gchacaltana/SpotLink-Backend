@@ -22,9 +22,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('me', 'me');
 });
 
-Route::group([
-    'prefix' => 'v1/links'
-], function ($router) {
-    Route::get('/{token}', [LinkController::class, 'getUrlByToken']);
+Route::prefix('v1/links')->middleware('auth.bearer')->group(function () {
+    // Ruta que requiere autenticación Bearer
     Route::post('/', [LinkController::class, 'create']);
+});
+
+Route::prefix('v1/links')->group(function () {
+    // Ruta que no requiere autenticación Bearer
+    Route::get('/{token}', [LinkController::class, 'getUrlByToken']);
 });
