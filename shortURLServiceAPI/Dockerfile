@@ -24,6 +24,8 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 # Establece el directorio de trabajo
 WORKDIR /app
 
+RUN chown -R www-data:www-data /app
+
 # Copia los archivos del proyecto Laravel al contenedor
 COPY shortURLServiceAPI .
 
@@ -34,10 +36,8 @@ RUN rm -rf /app/composer.lock
 # Instala las dependencias de Composer
 RUN composer install
 
-#RUN composer require laravel/octane spiral/roadrunner
-
 # Copia el archivo de configuración de ejemplo .env
-#COPY .env.example .env
+RUN cp .env.example .env
 
 RUN mkdir -p /app/storage/logs
 RUN php artisan cache:clear
