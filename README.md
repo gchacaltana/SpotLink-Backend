@@ -53,7 +53,7 @@ El siguiente diagrama muestra la interacción entre los componentes.
 
 ## Documentación
 
-* URL: https://api.spotlink.gonzch.com
+* URL: https://backend-gw.spotlink.gonzch.com/api/documentation
 
 ![image API Documentation](https://gonzch.com/img/cloud/spotlink/spotlink_api_documentation.jpg)
 
