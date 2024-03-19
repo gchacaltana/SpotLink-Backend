@@ -14,5 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->json([
+        'api' => [
+            'name' => 'SpotLink API',
+            'version' => '1.0.0',
+            'description' => 'API handles the creation and redirection of short URLs'
+        ]
+    ]);
 });
