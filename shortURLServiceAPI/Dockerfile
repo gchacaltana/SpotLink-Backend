@@ -39,7 +39,12 @@ RUN composer install
 # Copia el archivo de configuración de ejemplo .env
 RUN cp .env.example .env
 
+RUN mkdir -p /app/storage/app
 RUN mkdir -p /app/storage/logs
+RUN mkdir -p /app/storage/framework
+RUN mkdir -p /app/storage/framework/cache
+RUN mkdir -p /app/storage/framework/sessions
+RUN mkdir -p /app/storage/framework/views
 RUN php artisan cache:clear
 
 # Genera la clave de la aplicación
