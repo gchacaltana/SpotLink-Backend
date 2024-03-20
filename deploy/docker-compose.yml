@@ -1,31 +1,27 @@
 version: '3.8'
+networks:
+  network-spotlink:
+    driver: bridge
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: shortURLServiceAPI/Dockerfile
+    image: gchacaltanab/spotlink:latest
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    networks:
+      - network-spotlink
     ports:
       - "8000:8000"
     volumes:
       - .:/app
-    environment:
-      - APP_ENV=local
-      - APP_KEY=base64:base64:olfLzwMPkHxjYk/QJJV8sfBwRjQqKq5tOliXOSu3tXA=
-      - DB_CONNECTION=pgsql
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_DATABASE=db
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=postgres
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
     depends_on:
-      - db
+      - postgres
       - redis
 
   postgres:
     image: postgres:latest
+    networks:
+      - network-spotlink
     environment:
       POSTGRES_DB: db
       POSTGRES_USER: postgres
@@ -35,6 +31,8 @@ services:
 
   redis:
     image: redis:latest
+    networks:
+      - network-spotlink
     ports:
       - "6379:6379"
 
