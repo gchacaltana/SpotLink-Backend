@@ -95,3 +95,10 @@ sh run_dev.sh
 ![image Workflow Github Actions](https://gonzch.com/img/cloud/spotlink/workflow_backend.jpg)
 
 ## Unit Testing
+
+* Ejecutar test de pruebas unitarias y features.
+
+```bash
+php artisan test
+```
+![image Fragment Test](https://gonzch.com/img/cloud/spotlink/backend_test.jpg)
