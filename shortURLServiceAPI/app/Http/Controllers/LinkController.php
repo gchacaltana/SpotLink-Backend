@@ -9,6 +9,7 @@ use App\Exceptions\AuthException;
 use App\Exceptions\TokenException;
 use App\Helpers\StringHelper;
 use App\Services\CacheService;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @OA\Tag(
@@ -176,7 +177,9 @@ class LinkController extends Controller
     {
         try {
             $this->validateAuthUser();
-            $links = Link::where('user_id', auth()->user()->id)->get(['id', 'url', 'token', 'created_at']);
+            $links = Link::where('user_id', auth()->user()->id)
+                ->orderBy('id', 'desc')
+                ->select('id', 'url', 'token', DB::raw("to_char(created_at, 'dd/mm/yyyy hh:mm') as created_at_format"))->get();
             return response()->json($links, 200);
         } catch (AuthException $e) {
             return response()->json([
