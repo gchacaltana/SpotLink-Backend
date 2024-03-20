@@ -27,6 +27,11 @@ Route::prefix('v1/links')->middleware('auth.bearer')->group(function () {
     Route::post('/', [LinkController::class, 'create']);
 });
 
+Route::prefix('v1/links')->middleware('auth.bearer')->group(function () {
+    // Ruta que requiere autenticación Bearer
+    Route::get('/', [LinkController::class, 'getLinksByUser']);
+});
+
 Route::prefix('v1/links')->group(function () {
     // Ruta que no requiere autenticación Bearer
     Route::get('/{token}', [LinkController::class, 'getUrlByToken']);

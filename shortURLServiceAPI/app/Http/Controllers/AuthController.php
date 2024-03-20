@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Auth;
  * description="Servidor Local"
  * )
  * @OA\Server(
- *  url="https://api.spotlink.gonzch.com",
- *  description="Servidor QA"
+ *  url="https://backend-gw-spotlink.gonzch.com",
+ *  description="Servidor Producción"
  * )
  * @OA\Tag(
  *     name="API Auth",

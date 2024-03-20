@@ -146,4 +146,47 @@ class LinkController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Método para obtener los short links de un usuario
+     * @OA\Get (
+     *     path="/api/v1/links",
+     *     tags={"API Link"},
+     *     security={{ "Authorization": {} }},
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="id", type="integer"),
+     *             @OA\Property(property="url", type="string"),
+     *             @OA\Property(property="token", type="string"),
+     *             @OA\Property(property="created_at", type="string"),
+     *        )
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="status", type="string", example="error"),
+     *          )
+     *      )
+     * )
+     */
+    public function getLinksByUser()
+    {
+        try {
+            $this->validateAuthUser();
+            $links = Link::where('user_id', auth()->user()->id)->get(['id', 'url', 'token', 'created_at']);
+            return response()->json($links, 200);
+        } catch (AuthException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 401);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
