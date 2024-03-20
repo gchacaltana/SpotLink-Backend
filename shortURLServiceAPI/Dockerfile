@@ -50,6 +50,9 @@ RUN php artisan cache:clear
 # Genera la clave de la aplicación
 RUN php artisan key:generate
 
+# Genera la documentación de la API
+RUN php artisan l5-swagger:generate
+
 # Expone el puerto 8000 para acceder a la aplicación
 EXPOSE 8000
 
