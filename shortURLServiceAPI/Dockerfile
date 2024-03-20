@@ -12,6 +12,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_pgsql
 
+# Instala el cliente de Redis para PHP
+RUN pecl install redis && docker-php-ext-enable redis
+
 # Instala Composer
 RUN curl -sS https://getcomposer.org/installer​ | php -- \
      --install-dir=/usr/local/bin --filename=composer
